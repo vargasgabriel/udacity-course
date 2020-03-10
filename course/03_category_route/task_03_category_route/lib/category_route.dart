@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 // TODO: Define any constants
 
+
 /// Category Route (screen).
 ///
 /// This is the 'home' screen of the Unit Converter. It shows a header and
@@ -40,6 +41,34 @@ class CategoryRoute extends StatelessWidget {
     Colors.red,
   ];
 
+  Widget _buildCaterogyWidget() {
+    return ListView.builder(
+        itemBuilder: (BuildContext context, int i) {
+          return _buildRow(_categoryNames[i], _baseColors[i]);
+        });
+  }
+
+  Widget _buildRow(String categoryName, Color color) {
+    return InkWell(
+      highlightColor: color,
+      splashColor: color,
+      borderRadius: BorderRadius.all(Radius.circular(50.0)),
+      onTap: () => { print('I was tapped!') },
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Row(children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Icon(Icons.cake, size: 60.0,),
+          ),
+          Center(
+            child: Text(categoryName, style: TextStyle(fontSize: 24.0),),
+            ),
+        ],),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: Create a list of the eight Categories, using the names and colors
@@ -47,12 +76,15 @@ class CategoryRoute extends StatelessWidget {
     // Category. We'll add custom icons later.
 
     // TODO: Create a list view of the Categories
-    final listView = Container();
+    final listView = _buildCaterogyWidget();
 
     // TODO: Create an App Bar
-    final appBar = AppBar();
+    final appBar = AppBar(
+      title: Text('Unit Converter'),
+    );
 
     return Scaffold(
+      backgroundColor: Colors.green[100],
       appBar: appBar,
       body: listView,
     );
