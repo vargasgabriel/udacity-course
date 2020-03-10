@@ -5,8 +5,11 @@
 import 'package:flutter/material.dart';
 
 // TODO: Check if we need to import anything
+import 'category.dart';
+import 'category.dart';
 
 // TODO: Define any constants
+final _backgroundColor = Colors.green[100];
 
 
 /// Category Route (screen).
@@ -43,30 +46,15 @@ class CategoryRoute extends StatelessWidget {
 
   Widget _buildCaterogyWidget() {
     return ListView.builder(
-        itemBuilder: (BuildContext context, int i) {
-          return _buildRow(_categoryNames[i], _baseColors[i]);
-        });
-  }
-
-  Widget _buildRow(String categoryName, Color color) {
-    return InkWell(
-      highlightColor: color,
-      splashColor: color,
-      borderRadius: BorderRadius.all(Radius.circular(50.0)),
-      onTap: () => { print('I was tapped!') },
-      child: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Row(children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Icon(Icons.cake, size: 60.0,),
-          ),
-          Center(
-            child: Text(categoryName, style: TextStyle(fontSize: 24.0),),
-            ),
-        ],),
-      ),
-    );
+      itemBuilder: (
+        BuildContext context, 
+        int i
+        ) => Category(
+          name: _categoryNames[i], 
+          color: _baseColors[i], 
+          iconLocation: Icons.cake,
+        )
+      );
   }
 
   @override
@@ -76,15 +64,27 @@ class CategoryRoute extends StatelessWidget {
     // Category. We'll add custom icons later.
 
     // TODO: Create a list view of the Categories
-    final listView = _buildCaterogyWidget();
+    final listView = Container(
+      color: _backgroundColor,
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      child: _buildCaterogyWidget()
+    );
 
     // TODO: Create an App Bar
     final appBar = AppBar(
-      title: Text('Unit Converter'),
+      elevation: 0.0,
+      title: Text(
+        'Unit Converter',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 30.0,
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: _backgroundColor,
     );
 
     return Scaffold(
-      backgroundColor: Colors.green[100],
       appBar: appBar,
       body: listView,
     );
